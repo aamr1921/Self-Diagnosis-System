@@ -1,0 +1,472 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
+
+
+    string Doctors[3][4];
+    string Patients[3][6];
+    string Accounts[6][2];
+    string Diseases[5][5];
+    string age, ID;
+    int loginAttempts = 5;
+    string Counter = "5";
+    int cnt = 5;
+    string name1, name2, user, pass1, pass2, type, gender;
+
+void Login();
+void Register();
+void Main_menu();
+void spacer(string);
+void Display_diseases();
+void Add_disease();
+void Doctor_screen(int);
+void Remove_disease();
+void displaySymptoms();
+void Patient_Screen(int);
+void Find_disease();
+void View_Diagnosis(int);
+void Clear_Diagnosis(int);
+void Add_Symptom();
+
+void Add_Symptom(){
+   char Num;
+   char symptom;
+   cout << "1. Common Cold            2.Allergies            3.Chest Cold            4.Headache" << endl << endl;
+   cout << "Enter Number of Disease: " ;
+   cin >> Num;
+    for(int i = 0; i < 5; i++){
+        if(Diseases[i][0] == Num)
+        {
+            Diseases[i][0] 
+}
+
+
+void Clear_Diagnosis(int ind)
+{
+    for(int i = 0; i < 3; i++){
+        int check;
+        stringstream s(Patients[i][2]);
+        s >> check;
+        if(check == ind)
+        {
+           Patients[i][5] = 'D' + Patients[i][5];
+        }
+    }
+}   
+
+void View_Diagnosis(int ind){
+    for(int i = 0; i < 3; i++){
+        int check;
+        stringstream s(Patients[i][2]);
+        s >> check;
+        if(check == ind){
+            for(int j = 0; j < 5; j++){
+                if(Diseases[j][1] == Patients[i][5]){
+                    spacer(Diseases[j][0]);
+                    cout << endl;
+                }
+            }
+        }
+    }
+}
+
+void Find_disease(){
+    string symptomps;
+    cin >> symptomps;
+    for(int i = 0; i < 5; i++){
+        if(Diseases[i][3] == symptomps){
+            spacer(Diseases[i][0]);
+            cout << endl;
+        }
+    }
+}
+void Patient_Screen(int ind)
+{
+    cout << "Hello Patient, Thank you for logging in"<<endl;
+            cout<<"1- Find your disease based on your symptoms"<<endl;
+            cout<<"2- Display symptoms for a certain disease"<<endl;
+            cout<<"3- View Diagnosis history"<<endl;
+            cout<<"4- Clear Diagnosis history"<<endl;
+            char choice;
+            cin >> choice;
+            switch (choice)
+            {
+                case '1':
+                Find_disease();
+                Patient_Screen(ind);
+                break;
+                case '2':
+                displaySymptoms();
+                Patient_Screen(ind);
+                break;
+                case '3':
+                View_Diagnosis(ind);
+                Patient_Screen(ind);
+                break;
+                case '4':
+                Clear_Diagnosis(ind);
+                Patient_Screen(ind);
+                break;
+                }
+}
+
+void displaySymptoms()
+{
+    char disNum;
+    cout << " DISPLAYING SYMPTOMS BASED ON DISEASE  " << endl;
+    cout << "-------------------------------------" << endl;
+    cout << "1. Common Cold            2.Allergies            3.Chest Cold            4.Headache" << endl << endl;
+    cout << "Enter Number of Disease: " << endl;
+    cin >> disNum;
+    cout << endl;
+    switch (disNum)
+    {
+    case '1':
+        cout << "Common Cold Symptoms Are " << endl;
+        cout << endl;
+        cout << "1) Sneezing" << endl;
+        cout << "2) Sore Throat" << endl;
+        cout << "3) Coughing" << endl;
+        cout << "4) Runny Nose" << endl;
+        break;
+
+    case '2':
+        cout << "Allergies Symptoms Are " << endl;
+        cout << endl;
+        cout << "1) Eye Irritation" << endl;
+        cout << "2) Sore Throat" << endl;
+        cout << "3) Itching Body" << endl;
+        break;
+
+    case '3':
+        cout << "Chest Cold Symptoms Are " << endl;
+        cout << endl;
+        cout << "1) Coughing" << endl;
+        cout << "2) Mucus" << endl;
+        cout << "3) Sore Throat" << endl;
+        break;
+
+    case '4':
+        cout << "Headache Symptoms Are " << endl;
+        cout << endl;
+        cout << "1) Head Pain" << endl;
+        cout << "2) Head Pressure" << endl;
+        cout << "3) Dizziness" << endl;
+        break;
+
+    default:
+        break;
+    }
+}
+
+
+void Remove_disease() //to remove disease
+{
+    string name;
+    cout << "Enter the name of the disease" << endl;
+    cin >> name;
+    for(int i = 0; i < 5; i++){
+        if(Diseases[i][0] == name)
+        {
+            Diseases[i][0] = "D" + name;
+        }
+    }
+
+}
+
+void Doctor_screen(int ind) //to display doctor's screen
+{
+            cout<<"Hello Doctor,Thank you for logging in"<<endl;
+            cout << "Please Choose what you want" << endl;
+            cout << "1- Add Disease" << endl;
+            cout << "2- Remove Disease" << endl;
+            cout << "3- Add Symptom to Disease" << endl;
+            cout << "4- Display all Diseases" << endl;
+            cout << "5- View Patient with a certain Disease" << endl;
+            char choice;
+            cin >> choice;
+            switch (choice)
+            {
+            case '1':
+                Add_disease();
+                Doctor_screen(ind);
+                break;
+            case '2':
+                Remove_disease();
+                Doctor_screen(ind);
+                break;
+            case '3':
+                Add_Symptom();
+                Doctor_screen(ind);
+                break;
+            case '4':
+                Display_diseases();
+                Doctor_screen(ind);
+                break;
+            case '5':
+                cout << "test";
+                break;
+
+            default:
+                break;
+            }
+
+}
+
+void Add_disease() //to add disease
+{
+    cout << "Please Enter the name of the disease you want to add" << endl;
+    cin >> Diseases[4][0];
+    cout << "Please Enter the id of the disease you want to add" << endl;
+    cin >> Diseases[4][1];
+    cout << "Please Enter the description of the disease you want to add" << endl;
+    cin >> Diseases[4][2];
+    cout << "Please Enter the symptomps separated by commas of the disease you want to add" << endl;
+    cin >> Diseases[4][3];
+}
+void Display_diseases(){
+    for(int i = 0; i < 5; i++){
+        if(Diseases[i][0].substr(0,1) == "D"){
+            break;
+        }
+                    for(int j = 0; j < 5; j++)
+                    {
+                        string s;
+                        s = Diseases[i][j];
+                        spacer(s);
+                    }
+                    cout << endl;
+                }
+}
+void Login(){
+
+    //Log In
+    string username,password;
+    cout << "Welcome to the Self-Diagnosis System" << endl;
+    cout << "Please enter your username: " ;
+    cin >> username;
+    cout<<"Pleases enter your password: ";
+    cin>>password;
+    for(int i = 0; i < 6; i++){
+        if(username == Accounts[i][0] && password == Accounts[i][1]){
+            int ind,found;
+            for(int i = 0; i < 6; i++){
+                if(Accounts[i][0] == username){
+                    ind = i+1;
+                }
+            }
+            
+        for(int i = 0; i < 3; i++){
+            int check;
+            stringstream s(Doctors[i][2]);
+            s >> check;
+            if(check == ind){
+                found = 1;
+            }
+        }
+        for(int i = 0; i < 3; i++){
+            int check;
+            stringstream s(Patients[i][2]);
+            s >> check;
+            if(check == ind){
+                found = 0;
+            }
+        }
+        if(found == 1)
+        {
+            Doctor_screen(ind);
+            
+        }
+        else if (found == 0) //for patient's screen
+        {
+            Patient_Screen(ind);
+        
+        }
+    }
+}
+        cout << "Wrong Username or Password" << endl;
+        if(loginAttempts < 2)
+        {
+            cout << "You don't have any remaining Login Attempts" << endl;
+            exit(0);
+        }
+        cout << "You have " << --loginAttempts << " Times to login" << endl;
+        Login();
+}
+void Register() //for registration
+{
+
+		cout << "\n\nAre you a Patient or Doctor ?" << endl;
+		cin >> type;
+
+		if (type == "doctor" || type == "Doctor")
+		{
+			cout << "\n\n<<<REGISTRATION FORM>>>" << endl;
+			cout<<"-------------------------\n\n"<<endl;
+			cout << "Enter your first name: ";
+			cin >> name1;
+			cout << "Enter your last name: ";
+			cin >> name2;
+			cout << "Choose a username for your account: ";
+			cin >> user;
+            cout << "Enter a password: ";
+			cin >> pass1;
+			cout << "Re-enter your password: ";
+			cin >> pass2;
+
+	 while(pass1 != pass2)
+     {
+			cout << "Password not matching" << endl;
+            cout << "Enter a password: ";
+			cin >> pass1;
+			cout << "Re-enter your password: ";
+			cin >> pass2;
+	 }
+	
+    Doctors[2][0] = name1;
+    Doctors[2][1] = name2;
+    Doctors[2][2] = Counter;
+    if(Counter == "5"){
+        Counter = "6";
+    }
+    Accounts[cnt-1][0] = user;
+    Accounts[cnt-1][1] = pass1;
+    cnt++;
+
+
+	cout << "REGISTRATION COMPLETED!\nPlease return to Log in your account." << endl;
+
+}		
+
+else if (type == "patient" || type == "Patient"){
+            {
+		cout << "\n\n<<<REGISTRATION FORM >>>" << endl;
+		cout << "-------------------------\n\n";
+		cout << "Enter your first name: " ;
+		cin >> name1;
+		cout << "Enter your last name: " ;
+		cin >> name2;
+		cout << "Enter your age: " ;
+		cin >> age;
+        cout << "Choose a username for your account: ";
+		cin >> user;
+		cout << "Enter your gender: " ;
+		cin >> gender;
+		cout << "Enter Password: " ;
+		cin >> pass1;
+		cout << "Confirm Password: " ;
+		cin >> pass2;
+		}
+		while(pass1 != pass2)
+        {
+			cout << "Password not matching" << endl;
+            cout << "Enter a password: ";
+			cin >> pass1;
+			cout << "Re-enter your password: ";
+			cin >> pass2;
+		}
+        Patients[2][0] = name1;
+        Patients[2][1] = name2;
+        Patients[2][2] = Counter;
+        if(Counter == "5"){
+            Counter = "6";
+        }
+        Patients[2][3] = age;
+        Patients[2][4] = gender;
+        Accounts[cnt-1][0] = user;
+        Accounts[cnt-1][1] = pass1;
+        cnt++;
+ 
+		cout << "REGISTRATION COMPLETED!\nPlease return to Log in your account." << endl;
+
+    }
+    Main_menu();
+}
+void Main_menu(){
+    int choose;
+    cout<<"\t\tWELCOME TO SELF-DIAGNOSIS SYSTEM\t\t\t\t\t\t\n";
+    cout<<"\t\t-------------------------------\n"<<endl;
+	cout << "1: Register\t2: Login\t3: Exit\n\nYour Choice: ";
+	cin >> choose;
+
+    if(choose == 1){
+        Register();
+    }else if (choose == 2){
+        Login();
+    }else if (choose == 3){
+        exit(0);
+    }
+
+    
+}
+void spacer(string s)
+{
+    for(int i = 0; i < s.size(); i++)
+    {
+        if(s[i] == ',')
+        {
+            cout << ' ';
+        }
+        else
+        {
+            cout << s[i];
+        }
+    }
+}
+int main() 
+{
+    ifstream file("database.txt");
+    string data_string;
+    file >> data_string;
+    
+    int pos1 = 0;
+    int pos2;
+    //Assiging Doctors Data
+    for(int i = 0; i < 2; i++)
+    {
+        for(int j = 0; j < 4; j++)
+        {
+            pos2 = data_string.find('|', pos1);
+            Doctors[i][j] = data_string.substr(pos1,pos2-pos1);
+            pos1 = pos2+1;
+        }
+    }
+    //Assiging Patients Data
+    
+    for(int i = 0; i < 2; i++)
+    {
+        for(int j = 0; j < 6; j++)
+        {
+            pos2 = data_string.find('|', pos1);
+            Patients[i][j] = data_string.substr(pos1,pos2-pos1);
+            pos1 = pos2+1;
+        }
+    }
+    //Assiging Diseases Data
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 5; j++)
+        {
+            pos2 = data_string.find('|', pos1);
+            Diseases[i][j] = data_string.substr(pos1,pos2-pos1);
+            pos1 = pos2+1;
+        }
+    }
+    //Assiging Accounts Data
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            pos2 = data_string.find('|', pos1);
+            Accounts[i][j] = data_string.substr(pos1,pos2-pos1);
+            pos1 = pos2+1;
+        }
+    }
+
+
+    Main_menu();
+    
+    
+   return 0;
+}
